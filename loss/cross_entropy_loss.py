@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 import torch
 
+
 def cross_entropy_loss(logits, labels):
     """
     cross_entropy_loss的具体实现
@@ -21,6 +22,7 @@ def cross_entropy_loss(logits, labels):
     loss = -torch.mean(log_probs)
 
     return loss
+
 
 if __name__ == '__main__':
     # cross_entrop_loss的测试代码
