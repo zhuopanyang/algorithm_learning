@@ -42,7 +42,7 @@ class Solution:
         """
         主方法，处理数据，调用回溯方法，进行返回
         :param push_sequence:
-        :return:
+        :return:    返回所有可能的出栈顺序
         """
         self.res = []
         self.push_seq = push_sequence
