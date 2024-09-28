@@ -3,7 +3,7 @@
 
 class Solution:
     """
-    解决出战的所有顺序的类
+    解决出栈的所有顺序的类
     """
     def __init__(self):
         self.res = []
