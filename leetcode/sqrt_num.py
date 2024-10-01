@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 
 
-def sqrt_binary_search(target, precision):
+def sqrt_binary_search(target: int, precision: float) -> float:
     """
     计算一个数字的根号，保留两位小数点
     :param target:  需要计算的数字

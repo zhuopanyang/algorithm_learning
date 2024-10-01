@@ -21,7 +21,7 @@
 import sys
 
 
-def eval_expression(exp):
+def eval_expression(exp: str) -> int:
     """
     计算简单数学表达式的值，只包含正整数、加号和乘号
     :param exp: 数学表达式的字符串形式
@@ -33,7 +33,7 @@ def eval_expression(exp):
         return None
 
 
-def can_insert_digit_to_make_valid(equation):
+def can_insert_digit_to_make_valid(equation: str) -> str:
     """
     评估左侧和右侧的表达式，是否成立，或者插入一个数位，能否成立
     :param equation:   输入的数学表达式

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*
 import torch
+from torch import Tensor
 
 
-def cross_entropy_loss(logits, labels):
+def cross_entropy_loss(logits: Tensor, labels: Tensor) -> Tensor:
     """
     cross_entropy_loss的具体实现
     :param logits: 输入的logits分数
@@ -31,4 +32,3 @@ if __name__ == '__main__':
 
     loss = cross_entropy_loss(logits, labels)
     print("Cross_entropy_loss：", loss)
-

@@ -9,7 +9,7 @@ class Solution:
         self.res = []
         self.push_seq = ""
 
-    def backtracking(self, stack, current_pop_sequence, next_push_index):
+    def backtracking(self, stack: list, current_pop_sequence: list, next_push_index: int) -> None:
         """
         回溯方法
         :param stack:   一个栈，不断压入字符
@@ -38,10 +38,10 @@ class Solution:
             # 回溯，移除最后出栈的元素
             stack.append(current_pop_sequence.pop())
 
-    def main(self, push_sequence):
+    def main(self, push_sequence: str) -> list[str]:
         """
         主方法，处理数据，调用回溯方法，进行返回
-        :param push_sequence:
+        :param push_sequence:   输入的入栈顺序
         :return:    返回所有可能的出栈顺序
         """
         self.res = []

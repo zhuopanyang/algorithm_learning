@@ -16,7 +16,7 @@ class Solution:
         self.path = ""  # 当前的翻译结果
         self.number_string = ""     # 输入的数字字符串
 
-    def backtracking(self, start_index):
+    def backtracking(self, start_index: int) -> None:
         """
         回溯法
         :param start_index: 当前数字的索引
@@ -42,7 +42,7 @@ class Solution:
                 self.backtracking(start_index + 2)
                 self.path = self.path[:-2]
 
-    def dfs(self, start_index):
+    def dfs(self, start_index: int) -> None:
         """
         递归法
         :param start_index: 当前数字的索引
@@ -69,7 +69,7 @@ class Solution:
                 self.dfs(start_index + 2)
                 self.path = self.path[:-2]
 
-    def main(self, number_string):
+    def main(self, number_string: str) -> str:
         """
         主函数
         :param number_string: 输入的数字字符串
