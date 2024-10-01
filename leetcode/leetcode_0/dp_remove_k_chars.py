@@ -19,7 +19,7 @@ def cal_len(x):
     """
     计算字符重复x次压缩后的长度
     :param x:   输入的连续相同的字符串长度
-    :return:
+    :return:    返回压缩后的字符的长度
     """
     if not x:
         return 0
@@ -37,7 +37,7 @@ def remove_k_chars(s: str, k: int) -> int:
     使用动态规划算法，删除当前字符中至多k个字符，保留后的子字符的最小的压缩字符长度
     :param s:   输入的原始的字符
     :param k:   可以删除至多k个字符
-    :return:    返回
+    :return:    返回完成后的最小的压缩字符串长度
     """
     n = len(s)
     t = n - k
