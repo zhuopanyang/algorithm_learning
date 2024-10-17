@@ -73,7 +73,7 @@ for epoch in range(num_epochs):
     for inputs, labels in train_loader:
         # 正向传播
         outputs = model(x_train)
-        loss = criterion(outputs, y_train)
+        loss = criterion(outputs, labels)
 
         # 反向传播和优化
         optimizer.zero_grad()  # 清零梯度
