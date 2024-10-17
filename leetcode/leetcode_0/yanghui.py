@@ -18,7 +18,7 @@
 
 def yanghui(rowIndex: int) -> list[int]:
     """
-    生成杨辉三角
+    生成杨辉三角的某一层的数字列表
     :param rowIndex:    输入杨辉三角最底的一层，是多少层
     :return:    返回一个杨辉三角形第 rowIndex 行的数据
     """
