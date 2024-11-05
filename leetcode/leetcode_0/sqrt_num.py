@@ -28,7 +28,7 @@ if __name__ == '__main__':
     # 要求解根号的数字
     number = 10
     # 精确度到小数点后两位
-    precision = 0.01
+    precision = 0.001
 
     result = sqrt_binary_search(number, precision)
     print(f"根号{number}为：{result}")
