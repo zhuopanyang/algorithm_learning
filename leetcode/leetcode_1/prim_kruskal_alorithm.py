@@ -35,6 +35,11 @@
 1 <= E <= 100000;
 0 <= val <= 10000;
 
+prim算法核心就是三步，我称为prim三部曲，大家一定要熟悉这三步，代码相对会好些很多：
+第一步，选距离生成树最近节点
+第二步，最近节点加入生成树
+第三步，更新非生成树节点到生成树的距离（即更新minDist数组）
+
 prim 算法是维护节点的集合，而 Kruskal 是维护边的集合。
 
 Kruskal 与 prim 的关键区别在于，prim维护的是节点的集合，而 Kruskal 维护的是边的集合。
@@ -110,6 +115,9 @@ def prim(v: int, edges: list) -> int:
     # 记录节点是否在树里
     is_in_tree = [False] * (v + 1)
 
+    # 【记录访问边】记录最后访问的边的集合
+    visited_edges = [-1] * (v + 1)
+
     # prim算法主循环
     for i in range(1, v):
         cur = -1
@@ -128,6 +136,8 @@ def prim(v: int, edges: list) -> int:
         for j in range(1, v + 1):
             if is_in_tree[j] is False and grid[cur][j] < min_dist[j]:
                 min_dist[j] = grid[cur][j]
+                # 【记录访问边】记录最后访问的边的集合
+                visited_edges[j] = cur
 
     # 统计结果，并返回
     res = sum(min_dist[2: v + 1])
