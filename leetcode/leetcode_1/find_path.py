@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 """
 并查集主要有三个功能：
 
@@ -38,7 +39,7 @@ class UnionFind():
     并查集的实现类
     """
 
-    def __init__(self, size):
+    def __init__(self, size: int) -> None:
         """
         并查集的初始化函数
         :param size:
@@ -46,7 +47,7 @@ class UnionFind():
         # 初始化并查集
         self.parent = list(range(size + 1))
 
-    def find(self, u):
+    def find(self, u: int) -> int:
         """
         查找并查集中的某个元素的root节点
         :param u:   搜索的节点u
@@ -56,7 +57,7 @@ class UnionFind():
             self.parent[u] = self.find(self.parent[u])  # 路径压缩
         return self.parent[u]
 
-    def union(self, u, v):
+    def union(self, u: int, v: int) -> None:
         """
         将一条边 (u，v) 添加进来并查集中
         :param u:   边的一个节点
@@ -69,7 +70,7 @@ class UnionFind():
         if root_u != root_v:
             self.parent[root_v] = root_u
 
-    def is_same(self, u, v):
+    def is_same(self, u: int, v: int) -> bool:
         """
         判断两个节点是否存在共同的root节点
         :param u:   搜索的第一个节点
