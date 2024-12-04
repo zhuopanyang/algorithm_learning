@@ -49,6 +49,45 @@ dijkstra 算法可以同时求 起点到所有节点的最短路径
 第三步，更新非访问节点到源点的距离（即更新minDist数组）
 """
 
+import heapq
+
+
+class Edge:
+    def __init__(self, to, val):
+        self.to = to
+        self.val = val
+
+
+def dijkstra_optimize(n, edges, start, end):
+    grid = [[] for _ in range(n + 1)]
+    for x, y, k in edges:
+        grid[x].append(Edge(y, k))
+
+    # 初始化
+    min_dist = [float("inf")] * (n + 1)
+    visited = [False] * (n + 1)
+    pq = []
+    heapq.heappush(pq, (0, start))
+    min_dist[start] = 0
+
+    while pq:
+        cur_dist, cur_node = heapq.heappop(pq)
+
+        if visited[cur_node]:
+            continue
+
+        visited[cur_node] = True
+
+        for sub_edge in grid[cur_node]:
+            if visited[sub_edge.to] is False and cur_dist + sub_edge.val < min_dist[sub_edge.to]:
+                min_dist[sub_edge.to] = cur_dist + sub_edge.val
+                heapq.heappush(pq, (min_dist[sub_edge.to], sub_edge.to))
+
+    if min_dist[end] == float("inf"):
+        return -1
+    else:
+        return min_dist[end]
+
 
 def dijkstra(n: int, edges: list, start: int, end: int) -> int:
     """
