@@ -10,18 +10,17 @@ def cross_entropy_loss(logits: Tensor, labels: Tensor) -> Tensor:
     :param labels: 输入的labels
     :return: 返回loss的大小
     """
-    # 对logits分数进行softmax操作
+    # 对logits进行softmax操作
     probs = torch.softmax(logits, dim=1)
 
-    # 根据labels选取出相应的probs分数
-    true_probs = torch.gather(probs, dim=1, index=labels.unsqueeze(1))
+    # 根据labels选出相应的probs分数
+    true_probs = torch.gather(probs, dim=1, index=labels.unsqueeze(dim=1))
 
     # 将其取对数
     log_probs = torch.log(true_probs)
 
-    # 求和取平均
+    # 求和取平均值
     loss = -torch.mean(log_probs)
-
     return loss
 
 
