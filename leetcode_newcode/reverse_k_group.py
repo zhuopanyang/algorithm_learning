@@ -8,6 +8,7 @@ k 是一个正整数，它的值小于或等于链表的长度。如果节点总
 
 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
 """
+
 # Definition for singly-linked list.
 class ListNode:
     """
@@ -40,7 +41,7 @@ def reverse(head: ListNode, tail: ListNode) -> list[ListNode]:
     return tail, head
 
 
-def reverseKGroup(head: ListNode, k: int) -> ListNode:
+def reverse_k_group(head: ListNode, k: int) -> ListNode:
     """
     k个一组，翻转链表
     :param head:  需要进行翻转的链表
@@ -81,7 +82,7 @@ if __name__ == '__main__':
     head.next.next.next = ListNode(4)
     head.next.next.next.next = ListNode(5)
 
-    head = reverseKGroup(head, 2)
+    head = reverse_k_group(head, 2)
 
     # 遍历进行打印
     while head:
