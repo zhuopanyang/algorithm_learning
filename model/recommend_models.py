@@ -285,3 +285,4 @@ def test_ncf():
     # 前向传播
     predictions = model(user_indices, item_indices)
     print(predictions)
+
