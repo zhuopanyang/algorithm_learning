@@ -7,6 +7,7 @@ total_params = sum(p.numel() for p in model.parameters())
 
 """
 
+
 def calculate_transformer_params(d_model, n_heads, d_ff, n_layers) -> int:
     """
     计算Transformer的参数量
