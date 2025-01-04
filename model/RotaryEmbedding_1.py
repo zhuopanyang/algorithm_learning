@@ -56,3 +56,23 @@ def apply_rotary_pos_emb(q, k, cos, sin, position_ids):
     q_embed = (q * cos) + (rotate_half(q) * sin)
     k_embed = (k * cos) + (rotate_half(k) * sin)
     return q_embed, k_embed
+
+
+def precompute_rope_params(head_dim, theta_base=10000, context_length=4096):
+    assert head_dim % 2 == 0, "Embedding dimension must be even"
+    inv_freq = 1.0 / (theta_base ** (torch.arange(0, head_dim, 2).float() / head_dim))
+    positions = torch.arange(context_length)
+    angles = positions[:, None] * inv_freq[None, :]
+    angles = torch.cat([angles, angles], dim=1)
+    cos = torch.cos(angles)
+    sin = torch.sin(angles)
+    return cos, sin
+
+def compute_rope(x, cos, sin):
+    batch_size, num_heads, seq_len, head_dim = x.shape
+    assert head_dim % 2 == 0, "Head dimension must be even"
+    x1 = x[..., : head_dim // 2]
+    x2 = x[..., head_dim // 2:]
+    rotated = torch.cat((-x2, x1), dim=-1)
+    x_rotated = (x * cos) + (rotated * sin)
+    return x_rotated.to(dtype=x.dtype)
