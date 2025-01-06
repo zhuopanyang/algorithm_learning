@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*
+"""
+对比损失的实现
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

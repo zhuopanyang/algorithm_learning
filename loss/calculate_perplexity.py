@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*
+"""
+计算指标 困惑度（PPL） 的实现
+"""
+
 import torch
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 
