@@ -51,7 +51,7 @@ class MultiQueryAttention(nn.Module):
 
 
     # 创建掩码
-    def create_mask(size: int) -> Tensor:
+    def create_mask(self, size: int) -> Tensor:
         """
         创建一个掩码矩阵
         :param size:    序列的长度
@@ -79,7 +79,7 @@ class MultiQueryAttention(nn.Module):
         key = self.k_linear(x)
         value = self.v_linear(x)
 
-        # 进行分头操作
+        # 进行分头操作【MQA的特殊操作在这里】
         query = self.split_head(query)
         key = self.split_head(key, 1)
         value = self.split_head(value, 1)
@@ -104,3 +104,15 @@ class MultiQueryAttention(nn.Module):
         output = self.o_linear(output)
 
         return output
+
+
+if __name__ == '__main__':
+    # Testing MultiQueryAttention
+    input_tensor = torch.rand(2, 5, 256)  # batch size = 2, sequence length = 5, embedding dim = 256
+    mqa = MultiQueryAttention(hidden_size=256, num_heads=8)
+
+    # 创建一个掩码矩阵
+    mask = mqa.create_mask(5)
+
+    output_tensor = mqa(input_tensor, mask)
+    print("MultiQueryAttention Output Shape:", output_tensor.shape)  # Expected shape: (2, 5, 256)
