@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*
+"""
+Sigmoid 和 Softmax 的实现
+"""
+
 import numpy as np
 
 

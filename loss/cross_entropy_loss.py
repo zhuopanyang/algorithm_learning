@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*
+"""
+交叉熵损失的实现
+"""
+
 import torch
 from torch import Tensor
 
