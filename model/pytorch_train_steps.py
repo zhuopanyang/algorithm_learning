@@ -77,7 +77,7 @@ for epoch in range(num_epochs):
 
         # 反向传播和优化
         optimizer.zero_grad()  # 清零梯度
-        loss.backward()  # 计算梯度
+        loss.backward()  # 反向传播、计算梯度
         optimizer.step()  # 更新模型参数
 
     if (epoch+1) % 10 == 0:

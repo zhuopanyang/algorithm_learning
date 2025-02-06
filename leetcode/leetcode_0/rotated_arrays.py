@@ -4,7 +4,7 @@
 """
 
 
-def binary_research(rotated_nums: list, target: int) -> int:
+def binary_search(rotated_nums: list, target: int) -> int:
     """
     使用二分查找法，来找到对应的target的索引位置
     :param rotated_nums:    旋转数组
@@ -62,8 +62,32 @@ def binary_research(rotated_nums: list, target: int) -> int:
     return -1
 
 
+def binary_search_min(rotated_nums: list) -> int:
+    """
+    找出旋转数组中的 最小值 min_value
+    :param rotated_nums:    旋转数组
+    :return:    返回旋转数组中的最小值
+    """
+    left, right = 0, len(rotated_nums) - 1
+    res = float("inf")
+
+    # 二分查找法 [] 解法
+    while left <= right:
+        mid = left + (right - left) // 2
+        cur = rotated_nums[mid]
+        res = min(res, cur)
+
+        # 二分查找
+        if cur > rotated_nums[0]:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return res
+
+
 if __name__ == '__main__':
     rotated_nums = [5, 6, 7, 9, 10, 1, 2, 3, 4]
-    target = 5
-    target_index = binary_research(rotated_nums, target)
+    target = 7
+    target_index = binary_search(rotated_nums, target)
     print(target_index)
