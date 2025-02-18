@@ -5,33 +5,30 @@
 
 
 def test():
-    s = "abcbcad"
+    s = "tmmzuxt"
 
-    res = 1
-    cur_s = map()
+    res = 0
+    cur_s = {}
     left = 0
 
     # 开始遍历
     for i in range(len(s)):
         cur = s[i]
 
-        # 先判断当前字符，在不在窗口内，还有个数量
-        if cur not in cur_s.keys():
+        # 当前字符，不在窗口内，则添加进来，且取最长的长度保存下来
+        if cur not in cur_s.keys() or cur_s[cur] == 0:
             cur_s[cur] = 1
-
-            tmp = 0
-            for key, value in enumerate(cur_s):
-                tmp += value
-
-            res = max(res, tmp)
-
-        if cur in cur_s.keys() and cur_s[cur] > 1:
-            # 不断左移指针
-            while cur_s[cur] != 1:
-                cur_left = cur_s[left]
+            res = max(res, sum(cur_s.values()))
+        else:
+            # 当前字符，存在窗口内，则不断左移指针
+            while cur_s[cur] != 0:
+                cur_left = s[left]
                 cur_s[cur_left] -= 1
                 left += 1
+            # 此时，窗口已经吐出cur这个字符，重新添加当前字符
+            cur_s[cur] += 1
 
+    # 返回结果
     print(res)
 
 def main():
