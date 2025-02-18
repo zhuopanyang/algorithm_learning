@@ -1,6 +1,24 @@
 # -*- coding: utf-8 -*
 """
 写出一个使用 MSE loss 来训练神经网络模型的训练步骤
+model
+criterion
+optimizer
+
+dataset
+dataloader
+
+for epoch in range(num_epochs):
+    model.train()
+
+    for input, label in train_loader:
+        output = model(input)
+        loss = criterion(output, label)
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
 """
 import torch
 import torch.nn as nn
