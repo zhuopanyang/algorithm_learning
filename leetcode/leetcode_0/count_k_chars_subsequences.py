@@ -12,6 +12,8 @@
 选择字符种类组合： 从统计中选择构成子序列的恰好 kkk 种不同的字符。对于选定的每一种字符，在其可能的数量范围内选择子集参与子序列组合形成。
 子序列组合计算： 对于选定的 kkk 种字符，每一种可以从其频率中选择若干个构成顺序不变的子序列。
 
+【该题属于逻辑数学题，组合数即可】
+
 """
 
 from itertools import combinations
@@ -48,8 +50,8 @@ def count_k_distinct_subsequences(s: str, k: int) -> int:
 
     return total_count
 
-
-# 示例用法
-s = "eeabcd"
-k = 5
-print(count_k_distinct_subsequences(s, k))
+if __name__ == '__main__':
+    # 示例用法
+    s = "eeabcd"
+    k = 5
+    print(count_k_distinct_subsequences(s, k))

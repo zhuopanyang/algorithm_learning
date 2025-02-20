@@ -16,6 +16,9 @@
 
 # Definition for a binary tree node.
 class TreeNode:
+    """
+    定义一个树节点
+    """
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -25,6 +28,11 @@ class TreeNode:
 class Solution:
     # 【动态规划】
     def rob(self, root:TreeNode) -> int:
+        """
+        主函数
+        :param root:    输入的树节点
+        :return:    返回最大的收益
+        """
         # dp数组（dp table）以及下标的含义：
         # 1. 下标为 0 记录 **不偷该节点** 所得到的的最大金钱
         # 2. 下标为 1 记录 **偷该节点** 所得到的的最大金钱
@@ -33,17 +41,23 @@ class Solution:
 
     # 需要用到后序遍历，因为要通过递归函数的返回值来做下一步计算
     def traversal(self, root):
+        """
+        递归函数
+        :param root:    输入的树节点
+        :return:    返回的偷与不偷的情况
+        """
         # 递归终止条件
         if not root:
             return (0, 0)
 
+        # 偷左子树、右子树，所能返回的最大的收益
         left = self.traversal(root.left)
         right = self.traversal(root.right)
 
-        # 不偷当前节点，偷子节点
+        # 情况一：不偷当前节点，偷子节点
         val_0 = max(left[0], left[1]) + max(right[0], right[1])
 
-        # 偷当前节点，不偷子节点
+        # 情况二：偷当前节点，不偷子节点
         val_1 = root.val + left[0] + right[0]
 
         # 返回结果

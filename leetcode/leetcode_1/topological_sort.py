@@ -57,10 +57,12 @@ def topological_sort(n: int, edges: list) -> None:
     queue = deque([i for i in range(n) if in_degree[i] == 0])
     res = []
 
+    # 不断压出队列
     while queue:
         cur = deque.popleft()
         res.append(cur)
 
+        # 再不断更新cur的下一个文件的入度数，并检查，当入度为0的时候，添加到队列中，作为下一个可以删掉的元素
         for sub_file in umap[cur]:
             in_degree[sub_file] -= 1
             if in_degree[sub_file] == 0:

@@ -20,26 +20,28 @@ def max_product_subarray(nums: list) -> int:
     if len(nums) == 0:
         return 0
 
-    # 初始化最大值和当前值
+    # 最大的累乘积
     max_product = nums[0]
+
+    # 当前的累乘积
     curr_product = nums[0]
-    # 初始化最小值和当前值
-    min_product = nums[0]
-    curr_min = nums[0]
+    # 包含一个负数的累乘积
+    curr_product_min = nums[0]
 
     # 遍历数组
     for i in range(1, len(nums)):
-        # 如果当前数字是负数，需要交换curr_product和curr_min
+        # 如果当前数字是负数，需要交换curr_product 和 curr_product_min
         if nums[i] < 0:
-            curr_product, curr_min = curr_min, curr_product
+            curr_product, curr_product_min = curr_product_min, curr_product
 
-        # 更新当前的乘积和最小乘积
+        # 更新，当前乘积的最大值 和 包含一个负数的乘积的最小值
         curr_product = max(nums[i], curr_product * nums[i])
-        curr_min = min(nums[i], curr_min * nums[i])
+        curr_product_min = min(nums[i], curr_product_min * nums[i])
 
         # 更新全局最大乘积
         max_product = max(max_product, curr_product)
 
+    # 返回结果
     return max_product
 
 

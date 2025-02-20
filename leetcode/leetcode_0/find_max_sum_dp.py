@@ -45,7 +45,7 @@ def max_sum_of_middle_elements(arr: list) -> int:
     # 维护一个最大值
     max_value = dp[2]
 
-    # 从第三个元素开始到最后一个元素
+    # 从第四个元素开始到最后一个元素
     for i in range(3, n):
         # 可以选择(i-2, i-1, i)这三个元素，增加中间的元素
         dp[i] = max(dp[i - 1], dp[i - 3] + arr[i - 1])  # 选择中间元素时，不能重叠

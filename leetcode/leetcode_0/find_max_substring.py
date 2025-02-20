@@ -8,7 +8,13 @@
 """
 
 
-def count_substrings(s, k):
+def count_substrings(s: str, k: int):
+    """
+    有一个全是小写字母的字符串，统计一下长度大于等于k的连续字符子串的数量，并输出数量最多的子串
+    :param s:   输入的字符串
+    :param k:   输入的长度大小
+    :return:    返回数量，子串
+    """
     if k <= 0 or not s:
         return 0, ""
 
@@ -36,9 +42,10 @@ def count_substrings(s, k):
     return sum(1 for count in substring_count.values() if count > 0), most_frequent_substring
 
 
-# 示例用法
-s = "aabbccddeeffggg"
-k = 3
-count, frequent_substring = count_substrings(s, k)
-print(f"长度大于等于 {k} 的连续字符子串的数量: {count}")
-print(f"出现次数最多的子串: '{frequent_substring}'")
+if __name__ == '__main__':
+    # 示例用法
+    s = "aabbccddeeffggg"
+    k = 3
+    count, frequent_substring = count_substrings(s, k)
+    print(f"长度大于等于 {k} 的连续字符子串的数量: {count}")
+    print(f"出现次数最多的子串: '{frequent_substring}'")

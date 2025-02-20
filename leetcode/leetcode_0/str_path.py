@@ -19,10 +19,10 @@
 
 def judge(s1, s2):
     """
-    判断当前两个字符之间是否只有距离1
-    :param s1:
-    :param s2:
-    :return:
+    判断当前两个字符串之间是否只有距离1
+    :param s1:  第一个字符串 s1
+    :param s2:  第二个字符串 s2
+    :return:    返回二者之间的距离相差1
     """
     count = 0
     for i in range(len(s1)):
@@ -30,25 +30,23 @@ def judge(s1, s2):
             count += 1
     return count == 1
 
-
-if __name__ == "__main__":
-    n = int(input())
-    begin_str, end_str = map(str, input().split())
-    if begin_str == end_str:
-        print(0)
-        exit()
-
-    str_list = []
-    for i in range(n):
-        str_list.append(input())
-
+def bfs(n: int, begin_str: str, end_str: str, str_list: list):
+    """
+    广度优先遍历算法
+    :param n:   字典str_list中字符串的数量
+    :param begin_str:   初始的字符串
+    :param end_str:     结尾的字符串
+    :param str_list:    字典
+    :return:
+    """
     # 使用bfs
     visited = [False for _ in range(n)]
     queue = [[begin_str, 1]]
     while queue:
         s, step = queue.pop(0)
 
-        # 判断是否到终点了
+        # 判断是否到终点了，这样子只能获得其中一种结果
+        # 需要用回溯算法，才能获得所有可能的结果
         if judge(s, end_str):
             print(step + 1)
             exit()
@@ -61,3 +59,17 @@ if __name__ == "__main__":
 
     # 都没找到最终点的一条路线
     print(0)
+
+if __name__ == "__main__":
+    n = int(input())
+    begin_str, end_str = map(str, input().split())
+    if begin_str == end_str:
+        print(0)
+        exit()
+
+    str_list = []
+    for i in range(n):
+        str_list.append(input())
+
+    # 使用广度优先遍历算法
+    bfs(n, begin_str, end_str, str_list)

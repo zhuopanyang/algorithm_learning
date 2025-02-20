@@ -23,6 +23,7 @@
 输出示例
 1 3 5
 1 2 4 5
+
 """
 from collections import defaultdict
 
@@ -36,6 +37,13 @@ class Solution:
         self.path = []
 
     def dfs(self, graph: list, start_index: int, n: int) -> None:
+        """
+        dfs深度搜索
+        :param graph:   输入的图
+        :param start_index: 当前的节点
+        :param n:   最后的节点，即终点
+        :return:    None
+        """
         # 终止条件
         if start_index == n:
             self.res.append(self.path.copy())

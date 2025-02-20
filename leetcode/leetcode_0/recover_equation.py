@@ -17,6 +17,7 @@
 4*6=22+2
 15+7=1+2
 11+1=1+5
+
 """
 import sys
 
@@ -62,6 +63,7 @@ def can_insert_digit_to_make_valid(equation: str) -> str:
             if eval_expression(new_left) == eval_expression(right):
                 return "Yes"
 
+    # 返回结果
     return "No"
 
 

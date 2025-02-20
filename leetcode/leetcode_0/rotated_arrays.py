@@ -68,6 +68,10 @@ def binary_search_min(rotated_nums: list) -> int:
     :param rotated_nums:    旋转数组
     :return:    返回旋转数组中的最小值
     """
+    # 判断边界条件，如果不是旋转数组，直接返回第一个数字
+    if rotated_nums[0] < rotated_nums[len(rotated_nums) - 1]:
+        return rotated_nums[0]
+
     left, right = 0, len(rotated_nums) - 1
     res = float("inf")
 

@@ -12,40 +12,25 @@ def length_longest_substring(s: str) -> int:
     :return:    返回子串的长度
     """
     res = 0
-    s_length = len(s)
-
-    # 输入边界处理
-    if s_length < 1:
-        return res
-
-    # 定义指针、滑动窗口
-    left, right = 0, 0
-    match = 0
-    windows = {} # 维持的滑动窗口
+    cur_s = {}
+    left = 0
 
     # 开始遍历
-    while right < s_length:
-        c1 = s[right]
-        right += 1
+    for right in range(len(s)):
+        cur = s[right]
 
-        # 判断当前字符，不在之前的滑动窗口内
-        if c1 not in windows.keys() or windows.get(c1) < 1:
-            # 更新滑动窗口，以及最长的子串大小
-            windows[c1] = 1
-            res = max(res, right - left)
+        # 当前字符，不在窗口内，则添加进来，且取最长的长度保存下来
+        if cur not in cur_s.keys() or cur_s[cur] == 0:
+            cur_s[cur] = 1
+            res = max(res, right - left + 1)
         else:
-            # 当前字符，已经存在之前的滑动窗口内
-            windows[c1] = windows.get(c1) + 1
-            match += 1
-
-        # 检测到当前的滑动窗口内，存在两个相同的字符，需要移动left，知道找到为止
-        while match == 1:
-            c2 = s[left]
-            left += 1
-
-            windows[c2] = windows.get(c2) - 1
-            if windows[c2] == 1:
-                match -= 1
+            # 当前字符，存在窗口内，则不断左移指针
+            while cur_s[cur] != 0:
+                cur_left = s[left]
+                cur_s[cur_left] -= 1
+                left += 1
+            # 此时，窗口已经吐出cur这个字符，重新添加当前字符
+            cur_s[cur] += 1
 
     # 返回结果
     return res
