@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*
 """
+【单源正向】
 题目描述
 小明是一位科学家，他需要参加一场重要的国际科学大会，以展示自己的最新研究成果。
 小明的起点是第一个车站，终点是最后一个车站。然而，途中的各个车站之间的道路状况、交通拥堵程度以及可能的自然因素（如天气变化）等不同，
@@ -54,31 +55,45 @@ import heapq
 
 class Edge:
     def __init__(self, to, val):
-        self.to = to
-        self.val = val
+        self.to = to    # 邻接顶点
+        self.val = val  # 边的权重
 
 
-def dijkstra_optimize(n, edges, start, end):
+def dijkstra_optimize(edges: list, n: int, start: int, end: int) -> int:
+    """
+    【单源正边】dijkstra堆优化算法
+    :param edges:   输入的边的集合
+    :param n:   n个顶点数量
+    :param start:   起点
+    :param end:     终点
+    :return:    返回最短路的总和
+    """
+    # 使用邻接表，来表示图
     grid = [[] for _ in range(n + 1)]
     for x, y, k in edges:
         grid[x].append(Edge(y, k))
 
-    # 初始化
+    # 初始化距离数组、访问数组
     min_dist = [float("inf")] * (n + 1)
     visited = [False] * (n + 1)
+
+    # 定义一个最小堆，并放入第一个元素
     pq = []
-    heapq.heappush(pq, (0, start))
+    heapq.heappush(pq, (0, start))  # 堆里面存放的是 (x, y)表示源点到y的距离是x
     min_dist[start] = 0
 
+    # 判断当堆不为空的时候
     while pq:
-        cur_dist, cur_node = heapq.heappop(pq)
-
+        cur_dist, cur_node = heapq.heappop(pq)  # 压出最小堆的一个元素
+        # 如果访问过，直接跳过
         if visited[cur_node]:
             continue
-
+        # 设置当前节点
         visited[cur_node] = True
 
         for sub_edge in grid[cur_node]:
+            # 三个条件：（1）当前节点未访问过、（2）当前节点和cur节点连接【该条件在当前邻接表结构上，默认成立】
+            # （3）源点-当前节点+当前节点-cur节点的距离 < minsDist[cur]
             if visited[sub_edge.to] is False and cur_dist + sub_edge.val < min_dist[sub_edge.to]:
                 min_dist[sub_edge.to] = cur_dist + sub_edge.val
                 heapq.heappush(pq, (min_dist[sub_edge.to], sub_edge.to))
@@ -89,14 +104,14 @@ def dijkstra_optimize(n, edges, start, end):
         return min_dist[end]
 
 
-def dijkstra(n: int, edges: list, start: int, end: int) -> int:
+def dijkstra(edges: list, n: int, start: int, end: int) -> int:
     """
-    dijkstra（朴素版）算法
-    :param n:
-    :param edges:
-    :param start:
-    :param end:
-    :return:
+    【单源正边】dijkstra（朴素版）算法
+    :param edges:   输入的边的集合
+    :param n:   n个顶点数量
+    :param start:   起点
+    :param end:     终点
+    :return:    返回最短路的总和
     """
     # 初始化邻接矩阵
     grid = [[float("inf")] * (n + 1) for _ in range(n + 1)]
@@ -130,7 +145,10 @@ def dijkstra(n: int, edges: list, start: int, end: int) -> int:
 
         # 更新未访问过节点到原点的距离
         for v in range(1, n + 1):
-            if visited[v] is False and grid[cur][v] != float("inf") and minDist[cur] + grid[cur][v] < minDist[v]:
+            # 三个条件：（1）当前节点未访问过、（2）当前节点和cur节点连接
+            # （3）源点-当前节点+当前节点-cur节点的距离 < minsDist[cur]
+            if (visited[v] is False and grid[cur][v] != float("inf")
+                    and minDist[cur] + grid[cur][v] < minDist[v]):
                 minDist[v] = minDist[cur] + grid[cur][v]
 
     if minDist[end] == float("inf"):
@@ -149,5 +167,5 @@ if __name__ == '__main__':
 
     start, end = 1, n
 
-    res = dijkstra(n, edges, start, end)
+    res = dijkstra(edges, n, start, end)
     print(res)

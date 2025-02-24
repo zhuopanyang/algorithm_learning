@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*
 """
+【单源负向】
 题目描述
 某国为促进城市间经济交流，决定对货物运输提供补贴。共有 n 个编号为 1 到 n 的城市，通过道路网络连接，
 网络中的道路仅允许从某个城市单向通行到另一个城市，不能反向通行。
@@ -52,55 +53,72 @@ from collections import deque, defaultdict
 
 def bellman_ford_optimize(edges: list, n: int, start: int, end: int) -> int:
     """
-    bellam_ford的优化算法：边的权值存在服
-    :param edges:
-    :param n:
-    :param start:
-    :param end:
-    :return:
+    【单源负边】bellam_ford的队列优化算法（SPFA）：边的权值存在负数
+    :param edges:   输入的边的集合
+    :param n:   n个顶点数量
+    :param start:   起点
+    :param end:     终点
+    :return:    返回最短路的总和
     """
+    # 利用邻接表的数据结构
     grid = defaultdict(list)
     for x, y, k in edges:
         grid[x].append([y, k])
 
+    # 定义距离数组：表示从源点到该位置的最小距离
     min_dist = [float("inf")] * (n + 1)
     min_dist[start] = 0
-
+    # 定义一个访问数组（标记是否存在栈中）
     visited = [False] * (n + 1)
     visited[start] = True
 
+    # 利用一个栈，记录上一轮松驰过的节点，队列也可以，初始为源点
     queue = deque([start])
-
+    # 判断栈是否为空
     while queue:
         cur = queue.popleft()
         visited[cur] = False
 
         for y, k in grid[cur]:
+            # 松弛的两个条件：（1）cur边的起点不为最大值float("inf)
+            # （2）源点-当前节点+当前节点-cur节点的距离 < minsDist[cur]
             if min_dist[cur] != float("inf") and min_dist[cur] + k < min_dist[y]:
                 min_dist[y] = min_dist[cur] + k
+                # 判断y节点是否在栈中，不在的话，放入栈中，下一轮进行新的松弛
                 if visited[y] == False:
                     queue.append(y)
                     visited[y] = True
-
+    # 返回结果
     if min_dist[end] == float("inf"):
         return -1
     else:
         return min_dist[end]
 
 
-def bellman_ford(edges, n, start, end):
+def bellman_ford(edges: list, n: int, start: int, end: int) -> int:
+    """
+    【单源负边】bellam_ford算法：边的权值存在负数
+    :param edges:   输入的边的集合
+    :param n:   n个顶点数量
+    :param start:   起点
+    :param end:     终点
+    :return:    返回最短路的总和
+    """
+    # 定义距离数组：表示从源点到该位置的最小距离
     min_dist = [float("inf")] * (n + 1)
     min_dist[start] = 0
 
-    # 松弛 n - 1次
+    # 松弛 n - 1次：例如一条边（x, y, k），根据起点x判断是否松弛，即更新节点y到源点的最小距离
     for i in range(1, n):
         update = False
 
         for x, y, k in edges:
+            # 松弛的两个条件：（1）cur边的起点不为最大值float("inf)
+            # （2）源点-当前节点+当前节点-cur节点的距离 < minsDist[cur]
             if min_dist[x] != float("inf") and min_dist[x] + k < min_dist[y]:
                 min_dist[y] = min_dist[x] + k
                 update = True
-
+        # 剪枝：假如某一次松弛过程中，不再进行松弛，即可以退出松弛的循环
         if update is False:
             break
 
@@ -117,6 +135,7 @@ if __name__ == '__main__':
         x, y, k = map(int, input().split())
         edges.append([x, y, k])
 
+    # 源点、终点
     start, end = 1, n
 
     res = bellman_ford_optimize(edges, n, start, end)
