@@ -97,5 +97,6 @@ def main(solution_type="DFS") -> None:
 
 
 if __name__ == "__main__":
+    # 选择 BFS 还是 DFS算法
     solution_type = "DFS"
     main(solution_type)

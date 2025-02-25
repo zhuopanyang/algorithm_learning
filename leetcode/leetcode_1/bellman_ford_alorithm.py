@@ -81,7 +81,7 @@ def bellman_ford_optimize(edges: list, n: int, start: int, end: int) -> int:
 
         for y, k in grid[cur]:
             # 松弛的两个条件：（1）cur边的起点不为最大值float("inf)
-            # （2）源点-当前节点+当前节点-cur节点的距离 < minsDist[cur]
+            # （2）源点-cur节点+cur节点-当前节点的距离 < minsDist[cur]
             if min_dist[cur] != float("inf") and min_dist[cur] + k < min_dist[y]:
                 min_dist[y] = min_dist[cur] + k
                 # 判断y节点是否在栈中，不在的话，放入栈中，下一轮进行新的松弛

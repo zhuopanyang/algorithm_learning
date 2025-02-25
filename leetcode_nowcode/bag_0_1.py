@@ -9,7 +9,6 @@
 物品 0    1   15
 物品 1    3   20
 物品 2    4   30
-
 """
 
 def bag_0_1(n: int, bagweight: int, weights: list, values: list, optimize: bool=True) -> int:

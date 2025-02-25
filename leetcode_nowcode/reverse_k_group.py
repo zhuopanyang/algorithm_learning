@@ -27,8 +27,8 @@ def reverse(head: ListNode, tail: ListNode) -> list[ListNode]:
     :return:    返回翻转后的头尾指针
     """
     # 定义两个指针，分别是prev和p
-    prev = tail.next
-    p = head
+    prev = tail.next    #
+    p = head    # 初始为首节点
 
     while prev != tail:
         # 进行翻转
@@ -67,12 +67,16 @@ def reverse_k_group(head: ListNode, k: int) -> ListNode:
         # 此时，需要翻转头尾节点为head和tail的链表
         nex = tail.next
         head, tail = reverse(head, tail)
+
         # 然后，把翻转后的子链表，重新拼接回原链表中
         pre.next = head
         tail.next = nex
+
+        # 拼接完成后，更新pre、head两个指针的位置
         pre = tail
         head = tail.next
 
+    # 返回结果
     return dummy.next
 
 if __name__ == '__main__':

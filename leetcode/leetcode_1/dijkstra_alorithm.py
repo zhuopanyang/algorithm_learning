@@ -93,7 +93,7 @@ def dijkstra_optimize(edges: list, n: int, start: int, end: int) -> int:
 
         for sub_edge in grid[cur_node]:
             # 三个条件：（1）当前节点未访问过、（2）当前节点和cur节点连接【该条件在当前邻接表结构上，默认成立】
-            # （3）源点-当前节点+当前节点-cur节点的距离 < minsDist[cur]
+            # （3）源点-cur节点 + cur节点-当前节点的距离 < minsDist[cur]
             if visited[sub_edge.to] is False and cur_dist + sub_edge.val < min_dist[sub_edge.to]:
                 min_dist[sub_edge.to] = cur_dist + sub_edge.val
                 heapq.heappush(pq, (min_dist[sub_edge.to], sub_edge.to))
@@ -146,7 +146,7 @@ def dijkstra(edges: list, n: int, start: int, end: int) -> int:
         # 更新未访问过节点到原点的距离
         for v in range(1, n + 1):
             # 三个条件：（1）当前节点未访问过、（2）当前节点和cur节点连接
-            # （3）源点-当前节点+当前节点-cur节点的距离 < minsDist[cur]
+            # （3）源点-cur节点+cur节点-当前节点的距离 < minsDist[cur]
             if (visited[v] is False and grid[cur][v] != float("inf")
                     and minDist[cur] + grid[cur][v] < minDist[v]):
                 minDist[v] = minDist[cur] + grid[cur][v]
