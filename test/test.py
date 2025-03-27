@@ -1,80 +1,61 @@
 # -*- coding: utf-8 -*
 """
+有m个数组，每个数组都有n个非负正整数，我们从每个数组中选出一个数字
+组成一个序列，可以组成n*m个序列，
 
+请给出序列和最小的k个数值
 """
-
-from collections import defaultdict
-
-
-class UnionFind():
-    """
-    定义一个并查集
-    """
-    def __init__(self, size):
-        self.parent = list(range(size + 1))
-
-    def find(self, u):
-        if self.parent[u] != u:
-            self.parent[u] = self.find(self.parent[u])
-        return self.parent[u]
-
-    def union(self, u, v):
-        root_u = self.find(u)
-        root_v = self.find(v)
-        if root_u != root_v:
-            self.parent[root_u] = root_v
-
-    def is_same(self, u, v):
-        return self.find(u) == self.find(v)
+import heapq
 
 
-def is_tree_sfter_remove_edge(edges, edge, n):
-    uf = UnionFind(n)
+def find_k_smallest_sums(arrays, k):
+    if not arrays or k <= 0:
+        return []
 
-    for i in range(n):
-        if i == edge:
-            continue
+    # 初始化最小堆
+    heap = []
+    m = len(arrays)
+    n = len(arrays[0])
 
-        u, v = edges[i]
-        if uf.is_same(u, v):
-            return False
-        else:
-            uf.union(u, v)
-    return True
+    # 创建一个数组来记录每个数组的当前索引
+    indices = [0] * m
+
+    # 计算初始和（所有数组的第一个元素）
+    current_sum = sum(arrays[i][0] for i in range(m))
+    heapq.heappush(heap, (current_sum, indices.copy()))
+
+    # 使用一个集合来避免重复的索引组合
+    visited = set()
+    visited.add(tuple(indices))
+
+    result = []
+
+    while len(result) < k and heap:
+        current_sum, indices = heapq.heappop(heap)
+        result.append(current_sum)
+
+        # 生成下一个可能的索引组合
+        for i in range(m):
+            if indices[i] + 1 < n:
+                new_indices = indices.copy()
+                new_indices[i] += 1
+                new_sum = current_sum - arrays[i][indices[i]] + arrays[i][new_indices[i]]
+
+                if tuple(new_indices) not in visited:
+                    heapq.heappush(heap, (new_sum, new_indices))
+                    visited.add(tuple(new_indices))
+
+    return result
 
 
-def get_remove_edge(edges, n):
-    uf = UnionFind(n)
-
-    for i in range(n):
-        u, v = edges[i]
-        if uf.is_same(u, v):
-            print(u, v)
-            return
-        else:
-            uf.union(u, v)
-
-
-if __name__ == '__main__':
-    n = int(input())
-    edges = []
-    in_degree = defaultdict(int)
-    for i in range(n):
-        u, v = map(int, input().split())
-        in_degree[v] += 1
-        edges.append([u, v])
-
-    vec = list()
-    for i in range(n - 1, -1, -1):
-        u, v = edges[i]
-        if in_degree[v] == 2:
-            vec.append(i)
-
-    # 输出
-    if len(vec) > 0:
-        if is_tree_sfter_remove_edge(edges, vec[0], n):
-            print(edges[vec[0]][0], edges[vec[0]][1])
-        else:
-            print(edges[vec[1]][0], edges[vec[1]][1])
-    else:
-        get_remove_edge(edges, n)
+# 示例用法
+if __name__ == "__main__":
+    # 示例输入
+    arrays = [
+        [1, 3, 5],
+        [2, 4, 6],
+        [7, 8, 9]
+    ]
+    k = 5
+    result = find_k_smallest_sums(arrays, k)
+    print("最小的k个序列和是：", result)
